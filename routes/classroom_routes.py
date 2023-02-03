@@ -1,4 +1,4 @@
-from controller.classroom import buscaClasseAlunos
+from controller.classroom_controller import buscaClasseAlunos
 
 from main import app
 

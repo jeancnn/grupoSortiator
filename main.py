@@ -3,7 +3,7 @@ from database import engine
 
 app = FastAPI()
 
-from views.classroom import *
+from routes.classroom_routes import *
 
 
 @app.get("/")
