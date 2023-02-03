@@ -51,6 +51,7 @@ def enfiaAlunoNoGrupo(id_student, id_classe):
         print("Grupos: "+str(grupos))
 
 
+
 # while True:
 #     print("Escolha uma das opções: ")
 #     print("\n 1 - Cadastrar Classe\n 2 - Cadastrar aluno\n 3 - Cadastrar Grupo\n 4 - Listar tudo\n Digite qualquer outro número para sair.\n")
