@@ -7,4 +7,7 @@ from main import app
 def classroom():
     return buscaClasseAlunos()
 
+@app.post("/classroom")
+def classroom():
+    pass
 

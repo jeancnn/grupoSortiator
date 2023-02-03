@@ -6,6 +6,10 @@ from sqlmodel import select
 
 from sqlalchemy.orm import selectinload
 
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
+
+
 
 ### Cadastrar uma sala/classe
 # Isso é apenas um ex, ainda não está pronto
@@ -22,4 +26,7 @@ def buscaClasseAlunos():
     with Session(engine) as session:
         statement = select(ClassRoom).options(selectinload(ClassRoom.students))
         results = session.exec(statement).all()
-        return results
+        print(results)
+        
+        return str(results)
+        #return JSONResponse(content=jsonable_encoder(results))
