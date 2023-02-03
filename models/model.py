@@ -23,7 +23,6 @@ class Group(SQLModel, table=True):
     
     
 
-
 class Student(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
     name: str = Field(index=True)
