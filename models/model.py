@@ -1,11 +1,12 @@
 from typing import Optional, List
 from sqlmodel import Field, SQLModel, Relationship
 
+
 class ClassRoom(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, nullable=False)
     name: str = Field(index=True)
     
-    # students: List["Student"] = Relationship(back_populates="classroom")
+    students: List["Student"] = Relationship(back_populates="classroom")
 
 
 class Student(SQLModel, table=True):
@@ -15,7 +16,7 @@ class Student(SQLModel, table=True):
 
     id_classroom: Optional[int] = Field(default=None, foreign_key="classroom.id")
     
-    # classroom: Optional["ClassRoom"] = Relationship(back_populates="students")
+    classroom: Optional[ClassRoom] = Relationship(back_populates="students")
     # group: List["Group"] = Relationship(back_populates="students")
 
 

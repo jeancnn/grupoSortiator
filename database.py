@@ -1,4 +1,5 @@
-from sqlmodel import Field, Session, SQLModel, create_engine
+from sqlmodel import SQLModel, create_engine
+import models.model
 
 engine = create_engine("sqlite:///database.db")
 
