@@ -10,4 +10,3 @@ def classroom():
 @app.post("/classroom")
 def classroom():
     pass
-

@@ -45,12 +45,24 @@ def enfiaAlunoNoGrupo(id_student, id_classe):
         estudante = session.exec(statement1).first()
         grupos = session.exec(statement2).all()
         random.shuffle(grupos)
-        estudante.id_classroom = grupos[0].id
+        estudante.id_group = grupos[0].id
         estudante.group = grupos[0]
+        print("Primeiro grupo: "+str(grupos[0]))
         print ("Estudante: "+str(estudante))
         print("Grupos: "+str(grupos))
+        session.add(estudante)
+        session.commit()
+        session.refresh(estudante)
+        return estudante
+        
 
-
+def buscaGrupo():
+    with Session(engine) as session:
+        statement = select(Group).options(selectinload(Group.students))
+        
+        results = session.exec(statement).all()
+        print(results)
+        return results
 
 
 # while True:
@@ -70,3 +82,5 @@ def enfiaAlunoNoGrupo(id_student, id_classe):
 
 
 enfiaAlunoNoGrupo(1,1)
+
+#buscaGrupo()
