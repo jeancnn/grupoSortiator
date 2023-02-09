@@ -2,7 +2,7 @@ from database import engine
 from sqlmodel import Session, select
 from models.model import ClassRoom, Student, Group
 from sqlalchemy.orm import selectinload
-from controller.students import findStudent, createStudent, editStudent, deleteStudent
+from controller.students_controller import findStudent, createStudent, editStudent, deleteStudent
 
 
 while True:

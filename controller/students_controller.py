@@ -12,9 +12,9 @@ def findStudent():
         results = session.exec(statement).all()
         print(results)
 
-def createStudent(idClassRoom):
+def createStudent(idClassRoom,student:Student):
     with Session(engine) as session:
-        new_class = Student(id=None, name=input("Nome do aluno: "), contact=input("Contato do aluno: "), id_classroom=idClassRoom)
+        new_class = Student(id=None, name=student.name, contact=student.contact, id_classroom=idClassRoom)
         session.add(new_class)
         session.commit()
         #session.refresh(new_class)
