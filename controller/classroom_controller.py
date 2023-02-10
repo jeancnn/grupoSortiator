@@ -9,6 +9,9 @@ from sqlalchemy.orm import selectinload
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 
+from models.model import Student
+from typing import Optional, List
+
 
 from fastapi import Response
 import json
@@ -25,16 +28,15 @@ def cadastraClasse(classRoom:ClassRoom):
         return new_class
 
 
-def buscaClasseAlunos():
+def buscaClasseAlunos(classeID: int = None):
+
     with Session(engine) as session:
-        statement = select(ClassRoom).options(selectinload(ClassRoom.students))
-        results = session.exec(statement).all()
-        
-        print(results)
-        #return str(results)
-        #return JSONResponse(content=jsonable_encoder(results))
-        #json_str = json.dumps(results, indent=4, default=str)
-        #print(json_str)
-        #return JSONResponse(content=jsonable_encoder(json_str))
-        #return Response(content=json_str, media_type='application/json')
-        return results
+        if classeID is None:
+            statement = select(ClassRoom).options(selectinload(ClassRoom.students))
+            results = session.exec(statement).all()
+            return results
+            
+        else:
+            statement = select(Student).where(Student.id_classroom == classeID)
+            results = session.exec(statement).all()
+            return results
