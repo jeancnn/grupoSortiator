@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
 router = APIRouter(
-    prefix='/groups',
-    tags=['groups']
+        prefix='/groups',
+        tags=['groups']
 )
 
 @router.get('/')

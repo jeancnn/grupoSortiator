@@ -1,6 +1,13 @@
 from controller.classroom_controller import buscaClasseAlunos, cadastraClasse
 from fastapi import APIRouter, status, Response
 from models.model import ClassRoom
+from models.model import Student
+
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
+
+import json
+
 
 from typing import Optional, List
 
@@ -29,6 +36,26 @@ def busca_classes(response: Response):
     else:
         response.status_code = status.HTTP_404_NOT_FOUND
         return status.HTTP_404_NOT_FOUND
+
+##
+### Busca/lista todos os alunos na Classes
+##
+@router.get(
+    '/{id}',
+    summary='Retorna uma lista alunos de uma Classes/Salas',
+    response_model=List[Student],
+    status_code=status.HTTP_200_OK)
+
+def busca_classe_students(id:int, response: Response):
+    lista_classes_alunos = buscaClasseAlunos(id)
+    if lista_classes_alunos:
+        response.status_code = status.HTTP_200_OK
+        print(lista_classes_alunos)
+        return lista_classes_alunos
+    else:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return status.HTTP_404_NOT_FOUND
+
 
 
 

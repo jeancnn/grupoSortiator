@@ -8,6 +8,24 @@ from sqlalchemy.orm import selectinload
 
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+
+from models.model import Student
+from typing import Optional, List
+
+
+from fastapi import Response
+import json
+
+
+### Cadastrar uma sala/classe
+# Isso é apenas um ex, ainda não está pronto
+def cadastraClasse(classRoom:ClassRoom):
+    with Session(engine) as session:
+        new_class = ClassRoom(id=None, name=classRoom.name)
+        session.add(new_class)
+        session.commit()
+        session.refresh(new_class)
+        return new_class
 from fastapi import HTTPException, status
 
 
