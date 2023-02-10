@@ -1,7 +1,9 @@
 from database import engine
-from sqlmodel import Session, select
-from models.model import  Student
-from sqlalchemy.orm import selectinload
+from models.model import Student
+
+from sqlmodel import Session
+from sqlmodel import select
+
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException, status
@@ -28,10 +30,7 @@ def createStudent(idClassRoom,student:Student):
         new_student = Student(id=None, name=student.name, contact=student.contact, id_classroom=idClassRoom)
         session.add(new_student)
         session.commit()
-        #Não sei se esse refresh é necessário
-        session.refresh(new_student)
         #talvez aqui precisa de um try catch
-        print(new_student)
         return JSONResponse(content=jsonable_encoder(new_student))
 
 

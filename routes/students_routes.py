@@ -45,7 +45,7 @@ def busca_alunosID(id: int, response: Response):
     else:
         response.status_code = status.HTTP_404_NOT_FOUND
         return status.HTTP_404_NOT_FOUND
-
+    
 ##
 ### Cadastro de alunos
 ##
