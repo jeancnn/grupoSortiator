@@ -15,6 +15,7 @@ from typing import Optional, List
 
 from fastapi import Response
 import json
+from fastapi import HTTPException, status
 
 
 ### Cadastrar uma sala/classe
@@ -26,7 +27,6 @@ def cadastraClasse(classRoom:ClassRoom):
         session.commit()
         session.refresh(new_class)
         return new_class
-from fastapi import HTTPException, status
 
 
 def buscaClasseAlunos(classeID: int = None):
@@ -35,12 +35,23 @@ def buscaClasseAlunos(classeID: int = None):
         if classeID is None:
             statement = select(ClassRoom).options(selectinload(ClassRoom.students))
             results = session.exec(statement).all()
-            return results
+            if not results:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                    detail = {"message": f"No Class found with id: {classeID}"}
+                )
+            else:
+                return results
             
         else:
             statement = select(Student).where(Student.id_classroom == classeID)
             results = session.exec(statement).all()
-            return results
+            if not results:
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                    detail = {"message": f"No Class found with id: {classeID}"}
+                )
+            else:
+                return results            
+
     
 def createClass(classRoom:ClassRoom):
     with Session(engine) as session:
