@@ -25,14 +25,23 @@ router = APIRouter(
     summary='Retorna uma lista Classes/Salas',
     description='Retorna uma lista de todas as Classes/Salas cadastradas em formato JSON',
     response_description='Lista de Classes/Salas cadastradas',
-    response_model=List[ClassRoom],
+    # response_model=List[ClassRoom],
     status_code=status.HTTP_200_OK)
 
 def busca_classes(response: Response):
     lista_classes = buscaClasseAlunos()
     if lista_classes:
         response.status_code = status.HTTP_200_OK
-        return lista_classes
+
+        lista_classesJSON = jsonable_encoder(lista_classes)
+        
+        for classe in lista_classesJSON:
+            classe["students"] = jsonable_encoder(buscaClasseAlunos(classe["id"]))
+            #Preciso criar uma função retornando uma lista de grupos de um ID de classe específico
+            # classe["groups"] = jsonable_encoder(buscaClasseAlunos(3))
+
+        return lista_classesJSON
+
     else:
         response.status_code = status.HTTP_404_NOT_FOUND
         return status.HTTP_404_NOT_FOUND

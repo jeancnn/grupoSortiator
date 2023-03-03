@@ -33,12 +33,14 @@ def buscaClasseAlunos(classeID: int = None):
 
     with Session(engine) as session:
         if classeID is None:
-            statement = select(ClassRoom).options(selectinload(ClassRoom.students))
+            statement = select(ClassRoom).options(selectinload(ClassRoom.students)).options(selectinload(ClassRoom.groups))
             results = session.exec(statement).all()
             if not results:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                    detail = {"message": f"No Class found with id: {classeID}"}
-                )
+                return []
+	
+                # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                #     detail = {"message": f"No Class found with id: {classeID}"}
+                # )
             else:
                 return results
             
@@ -46,11 +48,15 @@ def buscaClasseAlunos(classeID: int = None):
             statement = select(Student).where(Student.id_classroom == classeID)
             results = session.exec(statement).all()
             if not results:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                    detail = {"message": f"No Class found with id: {classeID}"}
-                )
+                return []
+                
+                # raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                #     detail = {"message": f"No Class found with id: {classeID}"}
+                # )
             else:
-                return results            
+                return results          
+            
+# def buscaSomenteAlunosDaClasse(classeID)
 
     
 def createClass(classRoom:ClassRoom):
