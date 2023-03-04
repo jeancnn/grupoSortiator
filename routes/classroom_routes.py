@@ -1,4 +1,5 @@
 from controller.classroom_controller import buscaClasseAlunos, cadastraClasse
+from controller.groups_controller import findGroupsClassroom
 from fastapi import APIRouter, status, Response
 from models.model import ClassRoom
 from models.model import Student
@@ -30,6 +31,8 @@ router = APIRouter(
 
 def busca_classes(response: Response):
     lista_classes = buscaClasseAlunos()
+    print(jsonable_encoder(lista_classes))
+    
     if lista_classes:
         response.status_code = status.HTTP_200_OK
 
@@ -38,7 +41,7 @@ def busca_classes(response: Response):
         for classe in lista_classesJSON:
             classe["students"] = jsonable_encoder(buscaClasseAlunos(classe["id"]))
             #Preciso criar uma função retornando uma lista de grupos de um ID de classe específico
-            # classe["groups"] = jsonable_encoder(buscaClasseAlunos(3))
+            classe["groups"] = jsonable_encoder(findGroupsClassroom(classe["id"]))
 
         return lista_classesJSON
 

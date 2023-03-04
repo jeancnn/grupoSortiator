@@ -17,7 +17,7 @@ def findGroupsClassroom(classID: int = None):
         results = session.exec(statement).all()
         print(results)
         
-        return JSONResponse(content=jsonable_encoder(results))
+        return results
 
 
 def createGroup(classRoom:Group):

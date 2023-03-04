@@ -81,6 +81,8 @@ def buscaGrupo():
 #             break
 
 
-enfiaAlunoNoGrupo(1,1)
+# enfiaAlunoNoGrupo(1,1)
+
+cadastrarGrupo(3)
 
 #buscaGrupo()
